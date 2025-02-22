@@ -1,0 +1,41 @@
+<!-- score_records.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.name }} 的积分记录</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>{{ student.name }} 的积分记录</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>操作人</th>
+                <th>积分变化</th>
+                <th>原因</th>
+                <th>操作时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.user.username }}</td>
+                <td>{{ record.score }}</td>
+                <td>{{ record.reason }}</td>
+                <td>{{ record.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'dashboard' %}">返回仪表盘</a>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>

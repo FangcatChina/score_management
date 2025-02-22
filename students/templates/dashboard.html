@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仪表盘</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>学生列表</h2>
+    <form method="get">
+        <input type="text" name="search" placeholder="搜索学生姓名">
+        <button type="submit">搜索</button>
+    </form>
+    <a href="{% url 'public_ranking' %}">查看公开排名总览</a>
+    {% if user.is_admin %}
+        <a href="{% url 'add_student' %}">添加学生</a>
+        <a href="{% url 'add_group' %}">添加小组</a>
+        <a href="{% url 'batch_assign_student_to_group' %}">批量分配学生到小组</a>
+        <a href="{% url 'batch_add_score' %}">批量加减分</a>
+        <a href="{% url 'user_management' %}">用户管理</a>
+        
+    {% endif %}
+    <a href="{% url 'change_user_password' user.id%}">修改密码</a>
+    <ul>
+        {% for student in students %}
+            <li>
+                {{ student.name }} - 总分: {{ student.total_score }}
+                <a href="{% url 'add_score' student.id %}">加减积分</a>
+                <a href="{% url 'view_score_records' student.id %}">查看积分记录</a>
+                {% if user.is_admin %}
+                    <a href="{% url 'delete_student' student.id %}" onclick="return confirm('确定要删除该学生吗？')">删除</a>
+                {% endif %}
+                {% if student.group %}
+                    所在小组: {{ student.group.name }}
+                {% else %}
+                    未分配小组
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>小组列表</h2>
+    <ul>
+        {% for group in groups %}
+            <li>
+                {{ group.name }} - 总分: {{ group.calculate_total_score }}
+                {% if user.is_admin %}
+                    <a href="{% url 'update_group_special_score' group.id %}">修改专项分</a>
+                    <a href="{% url 'delete_group' group.id %}" onclick="return confirm('确定要删除该小组吗？该小组下的学生将被移除小组。')">删除</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>

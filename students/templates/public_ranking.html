@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公开排名总览</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>公开排名总览</h2>
+    <h3>学生排名</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>排名</th>
+                <th>学生姓名</th>
+                <th>总分</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.total_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>小组排名</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>排名</th>
+                <th>小组名称</th>
+                <th>总分</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ group.name }}</td>
+                <td>{{ group.calculate_total_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>

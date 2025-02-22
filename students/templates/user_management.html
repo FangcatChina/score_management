@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>用户管理</h2>
+    <ul>
+        {% for user in users %}
+            <li>
+                {{ user.username }}
+                <a href="{% url 'change_user_password' user.id %}">修改密码</a>
+                <a href="{% url 'delete_user' user.id %}">删除用户</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'dashboard' %}">返回仪表盘</a>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>

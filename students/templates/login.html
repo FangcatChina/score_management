@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>登录</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">登录</button>
+    </form>
+    <p>没有账户？ <a href="{% url 'register' %}">注册</a></p>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>

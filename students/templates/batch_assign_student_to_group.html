@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>批量分配学生到小组</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#search-input').on('input', function () {
+                var query = $(this).val();
+                $.ajax({
+                    url: '{% url "search_students" %}',
+                    data: {
+                        'query': query
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var checkboxes = '';
+                        data.forEach(function (student) {
+                            checkboxes += '<label><input type="checkbox" name="students" value="' + student.id + '"> ' + student.name + '</label><br>';
+                        });
+                        $('#students-checkboxes').html(checkboxes);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>批量分配学生到小组</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="search-input">搜索学生：</label>
+        <input type="text" id="search-input" placeholder="输入学生姓名">
+        <hr>
+        <div id="students-checkboxes">
+            {% for student in form.students.field.queryset %}
+                <label><input type="checkbox" name="students" value="{{ student.id }}"> {{ student.name }}</label><br>
+            {% endfor %}
+        </div>
+        <hr>
+        <label for="{{ form.group.id_for_label }}">选择小组：</label>
+        {{ form.group }}
+        <button type="submit">批量分配</button>
+    </form>
+    <a href="{% url 'dashboard' %}">返回仪表盘</a>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>

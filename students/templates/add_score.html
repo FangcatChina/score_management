@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加减积分 - {{ student.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- 页面标题 -->
+    <h2>为 {{ student.name }} 加减积分</h2>
+
+    <!-- 加减积分表单 -->
+    <form method="post">
+        <!-- 防止跨站请求伪造的 CSRF 令牌 -->
+        {% csrf_token %}
+
+        <!-- 显示表单字段 -->
+        {{ form.as_p }}
+
+        <!-- 提交按钮 -->
+        <button type="submit">提交积分变更</button>
+    </form>
+
+    <!-- 返回仪表盘链接 -->
+    <a href="{% url 'dashboard' %}">返回仪表盘</a>
+</body>
+<foot>
+    <hr></hr>
+    <ul>Developed by DeepSeek/Doubao</ul>
+    <ul>Hosted by Zixian Fang</ul>
+    <ul>Powered by Django</ul>
+    <ul>2025</ul>
+</foot>
+</html>
